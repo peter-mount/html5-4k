@@ -1,0 +1,30 @@
+# Example of a simple video clip ident
+
+project:
+  title: "Simple Video Ident"         # Title of the project
+  project: "Video-Ident"              # Project name
+  type: "4K HTML5 Animation Example"  # Project type
+  author:                             # Project author
+    - Peter Mount
+    - area51.media
+    - peter@area51.dev
+  output: test.mp4                    # Final video
+  frames: /home/peter/tmp/frames/                # Temp directory
+
+# Video settings
+video:
+  width: 3840   # 4k width in pixels
+  height: 2160  # 4k height in pixels
+  frameRate: 25 # Video output frame rate
+  timecode:
+    visible: true   # Show time code on every frame
+
+# The modules to run.
+# This is an array of tasks to perform:
+modules:
+  -
+    name: "ident"               # Our standard ident page
+    path: "./clipident/ident"   # Path to js module
+    duration: 6                 # Duration in seconds, default is 6, max 45, min 1
+    showFrames: false           # true then show frame count
+    smoothArc: false            # true then arcs progress by frames not per second

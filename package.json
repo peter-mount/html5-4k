@@ -1,0 +1,9 @@
+{
+  "name": "area51-chromium",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "chrome-remote-interface": "^0.29.0",
+    "yaml": "^1.10.0"
+  }
+}
