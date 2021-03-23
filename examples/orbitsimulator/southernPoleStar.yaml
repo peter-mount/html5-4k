@@ -1,0 +1,42 @@
+# Example of an animation of the proper motion of stars:
+#
+# Example src: https://twitter.com/tony873004/status/1372363453998923777
+#
+# The Southern Pole star is not as simple. There is a lot more proper motion downstairs.
+# Rather than stars sitting around waiting for the pole to point to them,
+# the stars migrate into the path of the pole.
+#
+# Sirius will be the Southern Star twice in the next quarter million years.
+
+project:
+  title: "Southern Pole Star"           # Title of the project
+  project: "Video-Ident"                # Project name
+  type: "4K HTML5 Animation Example"    # Project type
+  author:                               # Example author
+    - Tony Dunn
+    - "@tony873004"
+  output: /frames/southernPoleStar.mp4  # Final video
+  frames: /frames/                      # Temp directory to store the frames
+
+# Video settings
+video:
+  width: 3840       # 4k width in pixels
+  height: 2160      # 4k height in pixels
+  frameRate: 25     # Video output frame rate
+  timecode:
+    visible: false  # Show time code on every frame
+
+# The modules to run.
+# This is an array of tasks to perform:
+modules:
+  -
+    name: "southernPoleStar"
+    path: "./examples/orbitsimulator/index.js"  # path to js module for the animation
+    # The simulation url
+    page: "http://orbitsimulator.com/gravitySimulatorCloud/stars.html?6,0,0,-67,0,0,500,2000,122,0,200,0.2,5,0,1,1,1,15,0.96,00ff88,1,0,1,0,1,4,85,1,4,30,1,4,170,1,4,255,1,4,340,1,4,465,1,4,530,1,4,660,1,260,30,1,260,200,104,1,256,275,0.5,0000ff,0,0,0,0"
+    year: 2000          # Start year
+    speed: 100          # Years per frame
+    zoom: 1000          # Zoom
+    duration: 300       # Duration of animation in seconds
+    # The end year will be year + (speed * duration * video.frameRate)
+    # e.g. 2000 + (122 * 10 * 25) = 32500

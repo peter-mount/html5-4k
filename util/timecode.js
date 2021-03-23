@@ -119,9 +119,17 @@ function time(config, factor) {
   return ret.join(':');
 }
 
+function fps(config, frame) {
+  const now = new Date(),
+    elapsed = (now.getTime() - config.timeStart) / 1000,
+    fps = elapsed > 0 ? (frame / elapsed) : 0;
+  return fps
+}
+
 module.exports = {
   init: init,
   updateFrame: updateFrame,
   eta: eta,
-  duration: duration
+  duration: duration,
+  fps: fps
 }

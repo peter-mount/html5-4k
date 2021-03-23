@@ -1,0 +1,41 @@
+// This is an example Jenkins pipeline to run this example.
+//
+// For this to work you need a build label called "video" configured in Jenkins
+// attached to one or more build agents which have docker installed.
+//
+
+// Configure this to point a directory on the agent. It will be created so permissions
+// need to be correct
+def frameDir = '/home/peter/video/southernPoleStar'
+
+// The docker image to run
+def dockerImage = 'docker.ceres.area51.dev/video/southernpolestar:latest'
+
+// The uid of the build agent
+def uid = 1000
+
+// Docker command
+def dockerRun = [
+        'docker run',
+        '-i',                           // interactive, no-tty
+        '--rm',                         // remove image once run
+        '-u', uid,                      // Run as user
+        '--shm-size=256m',              // 256Mb of shared memory
+        '-v', frameDir + ':/frames',    // Mount frameDir as /frames in the container
+        dockerImage
+    ].join(' ')
+
+node( 'video' ) {
+    stage( 'Pull' ) {
+        sh 'docker pull ' + dockerImage
+    }
+
+    stage( 'Prepare' ) {
+        sh 'rm -rf ' + frameDir
+        sh 'mkdir -p ' + frameDir
+    }
+
+    stage( 'Generate' ) {
+        sh dockerRun + ' ./run.sh'
+    }
+}

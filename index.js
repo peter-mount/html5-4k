@@ -82,6 +82,10 @@ CDP(async (client) => {
   console.error(err);
 });
 
+function fix3dp(v) {
+  return Math.floor(v * 1000) / 1000;
+}
+
 async function generateFrames(client) {
 
   const {Emulation, Page, Runtime} = client;
@@ -92,6 +96,10 @@ async function generateFrames(client) {
       curTask = tasks[curTaskId];
 
       console.log("\rUsing", curTask.name, "for frames", frame, "to", curTask.endFrame);
+
+      if (curTask.config.prePageLoad) {
+        curTask.config.prePageLoad(frame - curTask.startFrame, frame, config, curTask);
+      }
 
       await Page.navigate({url: curTask.config.page});
       await Page.loadEventFired();
@@ -122,11 +130,13 @@ async function generateFrames(client) {
     }
 
     process.stdout.write([
-      "\rGenerating frame",
+      "Generating frame",
       "" + frame + "/" + frameCount,
+      "(" + fix3dp(frame * 100 / frameCount) + "%)",
       "eta", timecode.eta(config, frame, frameCount),
       "dur", timecode.duration(config, frame, frameCount),
-    ].join(' '));
+      "fps", fix3dp(timecode.fps(config, frame))
+    ].join(' ') + "\n");
 
     if (curTask.config.updateFrame) {
       const ex = curTask.config.updateFrame(frame - curTask.startFrame, frame, config, curTask);
