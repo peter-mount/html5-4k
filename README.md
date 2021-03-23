@@ -24,5 +24,8 @@ Note: This project is still a work in progress but is in a state where it's star
 The following are a list of available examples:
 
 * ident - example of rendering just an ident. This is visible at the start if each clip in the other examples.
+* orbitsimulator - example of animating stellar movement over 700,000 years
+  [![Rendered result](http://img.youtube.com/vi/Vn_eFtZVImo/0.jpg)](http://www.youtube.com/watch?v=Vn_eFtZVImo "Rendered result")
+  
 * worldmap - The Earth rotating in 4K 25 fps
   [![Rendered result](http://img.youtube.com/vi/xx4r90mu8fI/0.jpg)](http://www.youtube.com/watch?v=xx4r90mu8fI "Rendered result")
